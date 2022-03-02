@@ -1,2 +1,2 @@
 # ProjetGestionMDP
-Projet SLAM M.Guichard
+Projet SLAM avec M.Guichard, gestionnaire de MDP

@@ -1,3 +1,23 @@
+<?php
+	$erreur = 0;
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+
+	if(isset($_POST['connexion'])) {
+		$email = $_POST['email'];
+		$mdp = sha1($_POST['pass']);
+
+		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+		$verifMembre -> execute(array($email, $mdp));
+
+		$exist = $verifMembre -> rowCount();
+
+		if($exist == 1) {
+			header("Location: acceuil.php");
+		} else {
+			$erreur = 1;
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,13 +57,22 @@
 						<br>
 						<br>
 						<br>
+						<br>
 					<img src="images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
-				<form class="login100-form validate-form" action="verification.php" method="POST">
+				<form class="login100-form validate-form" /*action="verification.php"*/ method="POST">
 					<span class="login100-form-title">
 						Connexion
 					</span>
+
+					<?php
+						if($erreur == 1) {
+							?>
+							<p style="color: red;">Les identifiants sont incorrects</p>
+							<?php
+						}
+					?>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
@@ -62,17 +91,10 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button name="connexion" class="login100-form-btn">
 							Connexion
 						</button>
 					</div>
-					<?php
-					if(isset($_GET['erreur'])){
-						$err = $_GET['erreur'];
-						if($err==1 || $err==2)
-							echo "<p style='color:red'>Utilisateur ou mot de passe incorrect</p>";
-					}
-					?>
 
 					<div class="text-center p-t-12">
 						<span class="txt1">

@@ -1,9 +1,27 @@
 <?php
+	$erreur = 0;
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+
     if(isset($_POST['inscription'])) {
 		$name = $_POST['name'];
+		$email1 = $_POST['email'];
+		$email2 = $_POST['confirmEmail'];
+		$mdp1 = sha1($_POST['mdp1']);
+		$mdp2 = sha1($_POST['mdp2']);
 		
-        header("Location: acceuil.php");
+		if ($mdp1 == $mdp2) {
+			if($email1 == $email2) {
+				$ajoutMembre = $bdd -> prepare("INSERT INTO users(name, email, password) VALUES(?,?,?)");
+			$ajoutMembre -> execute(array($name, $email1, $mdp1));
+			header("Location: acceuil.php");
+			} else {
+				$erreur = 1;
+			}
+		} else {
+			$erreur = 1;
+		}
+		
+		//Ajouter pour empêcher création de compte si nom ou mail déjà utilisé
     }
     
 ?>
@@ -72,6 +90,14 @@
 						</span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate = "Entrer un email valide : ex@abc.xyz">
+						<input class="input100" type="text" name="confirmEmail" placeholder="Confirmation Email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
 					<div class="wrap-input100 validate-input" data-validate = "Le mot de passe est requis">
 						<input class="input100" type="password" name="mdp" placeholder="Mot de passe">
 						<span class="focus-input100"></span>
@@ -93,6 +119,14 @@
 							Inscription
 						</button>
 					</div>
+
+					<?php
+						if($erreur == 1) {
+							?>
+							<p style="color: red;">Les mots de passe ou les mails ne correspondent pas</p>
+							<?php
+						}
+					?>
 
 					<div class="text-center p-t-136">
 						<a class="txt2" href="index.php">

@@ -1,3 +1,12 @@
+<?php
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+    if(isset($_POST['inscription'])) {
+		$name = $_POST['name'];
+		
+        header("Location: acceuil.php");
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,15 +46,25 @@
 						<br>
 						<br>
 						<br>
+						<br>
+						<br>
 					<img src="images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
-				<form class="login100-form validate-form" action="verification.php" method="POST">
+				<form class="login100-form validate-form" method="POST">
 					<span class="login100-form-title">
-						Connexion
+						Inscription
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "Entrer un Nom">
+						<input class="input100" type="name" name="name" placeholder="Nom">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-solid fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Entrer un email valide : ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
@@ -53,8 +72,16 @@
 						</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Mot de passe">
+					<div class="wrap-input100 validate-input" data-validate = "Le mot de passe est requis">
+						<input class="input100" type="password" name="mdp" placeholder="Mot de passe">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Vous devez répéter le mot de passe">
+						<input class="input100" type="password" name="confirmMdp" placeholder="Répéter le mot de passe">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -62,30 +89,14 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Connexion
+						<button name="inscription"  class="login100-form-btn">
+							Inscription
 						</button>
-					</div>
-					<?php
-					if(isset($_GET['erreur'])){
-						$err = $_GET['erreur'];
-						if($err==1 || $err==2)
-							echo "<p style='color:red'>Utilisateur ou mot de passe incorrect</p>";
-					}
-					?>
-
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							Oublier
-						</span>
-						<a class="txt2" href="#">
-							Utilisateur / Mot de Passe ?
-						</a>
 					</div>
 
 					<div class="text-center p-t-136">
-						<a class="txt2" href="inscription.php">
-							Créer un utilisateur
+						<a class="txt2" href="index.php">
+							Vous avez déjà un compte ?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
 					</div>

@@ -1,22 +1,40 @@
 <?php
 	$erreur = 0;
+	$erreurMdp = 0;
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
     if(isset($_POST['inscription'])) {
-		$name = $_POST['name'];
-		$email1 = $_POST['email'];
-		$email2 = $_POST['confirmEmail'];
-		$mdp1 = sha1($_POST['mdp1']);
-		$mdp2 = sha1($_POST['mdp2']);
+		$name = htmlspecialchars($_POST['name']);
+		$email1 = htmlspecialchars($_POST['email']);
+		$email2 = htmlspecialchars($_POST['confirmEmail']);
+		$mdp1 = sha1($_POST['mdp']);
+		$mdp2 = sha1($_POST['confirmMdp']);
 		
-		if ($mdp1 == $mdp2) {
-			if($email1 == $email2) {
-				$ajoutMembre = $bdd -> prepare("INSERT INTO users(name, email, password) VALUES(?,?,?)");
-			$ajoutMembre -> execute(array($name, $email1, $mdp1));
-			header("Location: acceuil.php");
+		if (strlen($_POST['mdp']) > 7 AND $mdp1 == $mdp2) {
+			$countMaj = 0;
+			foreach($_POST['mdp1'] as $elmt) {
+				if($elmt.ctype_upper == true ) {
+					$count ++;
+				}
+			}
+			if($count == 2) {
+				if($email1 == $email2) {
+					$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
+					$ajoutMembre -> execute(array($name, $email1, $mdp1));
+					header("Location: index.php");
+				} else {
+					$erreur = 1;
+				}
+			} else {
+				$erreurMdp = 1;
+			}
+			/*if($email1 == $email2) {
+				$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
+				$ajoutMembre -> execute(array($name, $email1, $mdp1));
+				header("Location: index.php");
 			} else {
 				$erreur = 1;
-			}
+			}*/
 		} else {
 			$erreur = 1;
 		}
@@ -45,7 +63,7 @@
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/inscription.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -61,7 +79,6 @@
 						  margin-right: auto;
 						}
 						</style>
-						<br>
 						<br>
 						<br>
 						<br>
@@ -119,16 +136,19 @@
 							Inscription
 						</button>
 					</div>
-
 					<?php
 						if($erreur == 1) {
 							?>
 							<p style="color: red;">Les mots de passe ou les mails ne correspondent pas</p>
 							<?php
 						}
+						if($erreurMdp == 1) {
+							?>
+							<p style="color: red;">Votre mot de passe doit contenir au minimum 2 majuscules</p>
+							<?php
+						}
 					?>
-
-					<div class="text-center p-t-136">
+					<div class="text-center p-t-10">
 						<a class="txt2" href="index.php">
 							Vous avez déjà un compte ?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
@@ -157,7 +177,7 @@
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="js/login-register.js"></script>
 
 </body>
 </html>

@@ -3,15 +3,18 @@
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
 	if(isset($_POST['connexion'])) {
-		$email = $_POST['email'];
+		$email = htmlspecialchars($_POST['email']);
 		$mdp = sha1($_POST['pass']);
 
-		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE email = ? AND password = ?");
-		$verifMembre -> execute(array($email, $mdp));
+		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE passwd = ?");
+		$verifMembre -> execute(array($mdp));
 
 		$exist = $verifMembre -> rowCount();
 
 		if($exist == 1) {
+			session_start();
+			$user = $verifMembre -> fetch();
+			$_SESSION['res_id'] = $user['id'];
 			header("Location: acceuil.php");
 		} else {
 			$erreur = 1;
@@ -38,7 +41,7 @@
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -54,8 +57,6 @@
 						  margin-right: auto;
 						}
 						</style>
-						<br>
-						<br>
 						<br>
 						<br>
 					<img src="images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
@@ -75,7 +76,7 @@
 					?>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
+						<input class="input100" type="email" name="email" placeholder="Email">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -105,7 +106,7 @@
 						</a>
 					</div>
 
-					<div class="text-center p-t-136">
+					<div class="text-center p-t-10">
 						<a class="txt2" href="inscription.php">
 							Créer un utilisateur
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>

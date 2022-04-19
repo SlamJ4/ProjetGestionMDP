@@ -1,6 +1,6 @@
 <?php
 	$erreur = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","root","");
 
 	if(isset($_POST['connexion'])) {
 		$email = htmlspecialchars($_POST['email']);

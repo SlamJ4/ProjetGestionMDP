@@ -1,7 +1,7 @@
 <?php
 	$erreur = 0;
 	$erreurMdp = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","root","");
 
     if(isset($_POST['inscription'])) {
 		$name = htmlspecialchars($_POST['name']);
@@ -10,14 +10,18 @@
 		$mdp1 = sha1($_POST['mdp']);
 		$mdp2 = sha1($_POST['confirmMdp']);
 		
-		if (strlen($_POST['mdp']) > 7 AND $mdp1 == $mdp2) {
+		if ($mdp1 == $mdp2) {
 			$countMaj = 0;
-			foreach($_POST['mdp1'] as $elmt) {
-				if($elmt.ctype_upper == true ) {
-					$count ++;
+			$countCaraSpecial = 0;
+			for($i = 0; $i < strlen($_POST['mdp']); $i += 1) {
+				if(ctype_upper($_POST['mdp'][$i])) {
+					$countMaj += 1;
+				}
+				if(ctype_digit($_POST['mdp'][$i])) {
+					$countCaraSpecial += 1;
 				}
 			}
-			if($count == 2) {
+			if(strlen($_POST['mdp']) > 7 AND $countMaj >= 1 AND $countCaraSpecial >= 1) {
 				if($email1 == $email2) {
 					$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
 					$ajoutMembre -> execute(array($name, $email1, $mdp1));
@@ -144,7 +148,7 @@
 						}
 						if($erreurMdp == 1) {
 							?>
-							<p style="color: red;">Votre mot de passe doit contenir au minimum 2 majuscules</p>
+							<p style="color: red;">Votre mot de passe doit contenir au minimum 7 caractères dont 1 majuscule et 1 chiffre</p>
 							<?php
 						}
 					?>

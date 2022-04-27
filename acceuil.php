@@ -1,3 +1,13 @@
+<?php
+    session_start();
+
+    $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+
+    $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");
+    $user -> execute(array($_SESSION['res_id']));
+    
+    $infosUser = $user -> fetch();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <!--Add :
@@ -61,55 +71,43 @@
         var theme = 'white';
 
         function ChangeTheme() {
-            if(theme == 'white') {
+            if (theme == 'white') {
                 document.querySelectorAll('.dropdown-menu.class2').style.background = 'dimgray';
                 theme = 'black';
             } else {
                 document.querySelectorAll('.dropdown-menu.class2').style.background = 'white';
-                theme = 'white' 
+                theme = 'white'
             }
         }
 
         function searchMDP() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
+            var input, filter, ul, li, a, i, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
                 }
             }
         }
 
         function ajouteLigne(tableID) {
-            // Récupération d'une référence à la table
-            var refTable = document.getElementById(tableID);
-
-            // Insère une ligne dans la table à l'indice de ligne 0
-            var nouvelleLigne = refTable.insertRow(-1);
-
-            // Insère une cellule dans la ligne à l'indice 0
-            var nouvelleCellule = nouvelleLigne.insertCell(-1);
-
-            // Ajoute un nœud texte à la cellule
-            var nouveauTexte = document.createTextNode('New MDP')
-            nouvelleCellule.appendChild(nouveauTexte);
+            var ul = document.getElementById("myUL");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode("Four"));
+            ul.appendChild(li);
         }
 
     </script>
     <script>$(document).ready(function () {
-        new ClipboardJS('.btn'); });
+            new ClipboardJS('.btn');
+        });
     </script>
 
 </head>
@@ -118,12 +116,14 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="#" onclick="ajouteLigne('myTable')">Add Password</a></li>
+            <li class="nav-item"><a class="nav-link " href="AddPassword.php" onclick="ajouteLigne('myTable')">Add
+                    Password</a></li>
             <li class="nav-item"><a class="nav-link " href="#">
                     <div class="logo-image">
                         <img title="Modify theme" src="images/imgacceuil//Theme/sunriseclair24px.png"
                             onmouseover="this.src='images/imgacceuil/Theme/sunrisefull24px.png'"
-                            onmouseout="this.src='images/imgacceuil/Theme/sunriseclair24px.png'" class="img-fluid" onclick="ChangeTheme()"/>
+                            onmouseout="this.src='images/imgacceuil/Theme/sunriseclair24px.png'" class="img-fluid"
+                            onclick="ChangeTheme()" />
                     </div>
                 </a></li>
         </ul>
@@ -133,9 +133,9 @@
                 placeholder="Search Password" aria-label="Search Password">
         </form>
 
-        
+
     </nav>
-<!--
+    <!--
     <div class="main">
         <div>
             <p>Items : </p>
@@ -167,46 +167,43 @@
     <!----------------------------------------------SideBar---------------------------------------------------------------->
     <aside class="sidebar">
         <div class="toggle">
-          <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
-            <span></span>
-          </a>
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
         </div>
         <div class="side-inner">
 
-          <div class="profile">
-            <img src="images/image-sidebar/person_4.jpg" alt="Image" class="img-fluid">
-            <h3 class="name">Craig David</h3>
-            <span class="country">Web Designer</span>
-          </div>
+            <div class="profile">
+                <a href="profil.php"><img src="images/image-sidebar/person_4.jpg" alt="Image" class="img-fluid"></a>
+                <h3 class="name">
+                    <?php echo($infosUser['pseudo']); ?>
+                </h3>
+                <span class="country">Web Designer</span>
+            </div>
 
 
-          <div class="nav-menu">
-            <ul>
-              <li><a href="#"><span class="icon-notifications mr-3"></span>Notifications</a></li>
-              <li><a href="#"><span class="icon-location-arrow mr-3"></span>Direct</a></li>
-              <div class="margintopsidedeco">
-              <li><a href="profil.php" ><span class="icon-pie-chart mr-3"></span>Profil</a></li>
-              <li><a href="#"><span class="icon-sign-out mr-3"></span>Sign out</a></li>
-              </div>
-            </ul>
-            <table id="myTable">
-            <tr class="header">
-                <th style="width:60%;">Name</th>
-            </tr>
-            <tr>
-                <td>Spotify</td>
-            </tr>
-            <tr>
-                <td>Youtube</td>
-            </tr>
-            <tr>
-                <td>Mail</td>
-            </tr>
-            <tr>
-                <td>PSN</td>
-            </tr>
-        </table>
-          </div>
+            <div class="nav-menu">
+                <ul>
+                    <div>
+                        <li><a href="profil.php"><span class="icon-pie-chart mr-3"></span>Profil</a></li>
+                        <li><a href="index.php">
+                                <span class="icon-sign-out mr-3"></span>Sign out
+                            </a></li>
+                    </div>
+                </ul>
+                <hr />
+                <ul id="myUL">
+                    <li><a href="#">Adele</a></li>
+                    <li><a href="#">Agnes</a></li>
+
+                    <li><a href="#">Billy</a></li>
+                    <li><a href="#">Bob</a></li>
+
+                    <li><a href="#">Calvin</a></li>
+                    <li><a href="#">Christina</a></li>
+                    <li><a href="#">Cindy</a></li>
+                </ul>
+            </div>
         </div>
 
     </aside>
@@ -215,7 +212,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sidebar.js"></script>
-  <!----------------------------------------------SideBar---------------------------------------------------------------->
+    <!----------------------------------------------SideBar---------------------------------------------------------------->
 </body>
 
 </html>

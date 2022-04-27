@@ -8,7 +8,7 @@
     $erreurPasswd = 0;
 
     $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");
-    $user -> execute(array(8));
+    $user -> execute(array($_SESSION['res_id']));
     
     $infosUser = $user -> fetch();
 
@@ -20,7 +20,7 @@
 
         if(isset($newPseudo) AND $newPseudo != $infosUser['pseudo'] AND strlen($newPseudo) > 0) {
             $changePseudo = $bdd -> prepare("UPDATE users SET pseudo = ? WHERE id = ?");
-            $changePseudo -> execute(array($newPseudo, 8));
+            $changePseudo -> execute(array($newPseudo, $_SESSION['res_id']));
             $changement++;
 
         } else {
@@ -29,7 +29,7 @@
 
         if(isset($newEmail) AND $newEmail != $infosUser['email'] AND strlen($newEmail) > 0) {
             $changeEmail = $bdd -> prepare("UPDATE users SET email = ? WHERE id = ?");
-            $changeEmail -> execute(array($newEmail, 8));
+            $changeEmail -> execute(array($newEmail, $_SESSION['res_id']));
             $changement++;
 
         } else {
@@ -38,9 +38,9 @@
 
         if(isset($newMdp) AND $newMdp != $infosUser['passwd'] AND strlen($newMdp) > 0) {
             $changePasswd = $bdd -> prepare("UPDATE users SET passwd = ? WHERE id = ?");
-            $changePasswd -> execute(array($newMdp, 8));
+            $changePasswd -> execute(array($newMdp, $_SESSION['res_id']));
             $changement++;
-
+            //METTRE LES MÊMES RÈGLES DE SÉCURITÉS QUE POUR L'INSCRIPTION
         } else {
             $erreurPasswd = 1;
         }

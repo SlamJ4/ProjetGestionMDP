@@ -1,7 +1,7 @@
 <?php
 	$erreur = 0;
 	$erreurMdp = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","root","");
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
     if(isset($_POST['inscription'])) {
 		$name = htmlspecialchars($_POST['name']);

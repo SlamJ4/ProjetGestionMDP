@@ -69,6 +69,44 @@
                 theme = 'white' 
             }
         }
+
+        function searchMDP() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function ajouteLigne(tableID) {
+            // Récupération d'une référence à la table
+            var refTable = document.getElementById(tableID);
+
+            // Insère une ligne dans la table à l'indice de ligne 0
+            var nouvelleLigne = refTable.insertRow(-1);
+
+            // Insère une cellule dans la ligne à l'indice 0
+            var nouvelleCellule = nouvelleLigne.insertCell(-1);
+
+            // Ajoute un nœud texte à la cellule
+            var nouveauTexte = document.createTextNode('New MDP')
+            nouvelleCellule.appendChild(nouveauTexte);
+        }
+
     </script>
     <script>$(document).ready(function () {
         new ClipboardJS('.btn'); });
@@ -80,7 +118,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="#">Add Password</a></li>
+            <li class="nav-item"><a class="nav-link " href="#" onclick="ajouteLigne('myTable')">Add Password</a></li>
             <li class="nav-item"><a class="nav-link " href="#">
                     <div class="logo-image">
                         <img title="Modify theme" src="images/imgacceuil//Theme/sunriseclair24px.png"
@@ -91,9 +129,8 @@
         </ul>
 
         <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search Password"
-                aria-label="Search Password">
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" id="myInput" onkeyup="searchMDP()"
+                placeholder="Search Password" aria-label="Search Password">
         </form>
 
         
@@ -152,6 +189,23 @@
               <li><a href="#"><span class="icon-sign-out mr-3"></span>Sign out</a></li>
               </div>
             </ul>
+            <table id="myTable">
+            <tr class="header">
+                <th style="width:60%;">Name</th>
+            </tr>
+            <tr>
+                <td>Spotify</td>
+            </tr>
+            <tr>
+                <td>Youtube</td>
+            </tr>
+            <tr>
+                <td>Mail</td>
+            </tr>
+            <tr>
+                <td>PSN</td>
+            </tr>
+        </table>
           </div>
         </div>
 

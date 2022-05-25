@@ -34,7 +34,7 @@
 <body>
 	<br>
 	<br>
-	<form method="POST">
+	<form method="POST" action="acceuil.php">
 		<table align="center">
 			<tr>
 				<td align="right">

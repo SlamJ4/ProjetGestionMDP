@@ -7,6 +7,11 @@
     $user -> execute(array($_SESSION['res_id']));
     
     $infosUser = $user -> fetch();
+
+    $mdpItem = $bdd -> prepare("SELECT * FROM gestionmdp WHERE user = ?");
+    $mdpItem -> execute(array($_SESSION['res_id']));
+    
+    $mdpInfoItem = $mdpItem -> fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -117,7 +122,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="AddPassword.php" onclick="ajouteLigne('myTable', '<?php echo($_POST['identifiant']); ?>')">Add
+            <li class="nav-item"><a class="nav-link " href="AddPassword.php" onclick="ajouteLigne('myTable', '<?php echo($mdpInfoItem['site']); ?>')">Add
                     Password</a></li>
             <li class="nav-item"><a class="nav-link " href="#">
                     <div class="logo-image">

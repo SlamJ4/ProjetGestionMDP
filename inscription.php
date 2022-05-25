@@ -1,6 +1,7 @@
 <?php
 	$erreur = 0;
 	$erreurMdp = 0;
+	$erreurMail = 0;
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
     if(isset($_POST['inscription'])) {
@@ -23,27 +24,28 @@
 			}
 			if(strlen($_POST['mdp']) > 7 AND $countMaj >= 1 AND $countCaraSpecial >= 1) {
 				if($email1 == $email2) {
-					$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
-					$ajoutMembre -> execute(array($name, $email1, $mdp1));
-					header("Location: index.php");
+					$testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
+					$testEmail -> execute(array($_POST['email']));
+
+					$emailUse = $testEmail -> rowCount();
+
+					if($emailUse == 0) {
+						$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
+						$ajoutMembre -> execute(array($name, $email1, $mdp1));
+						header("Location: index.php");
+					} else {
+						$erreurMail = 1;
+					}
 				} else {
 					$erreur = 1;
 				}
 			} else {
 				$erreurMdp = 1;
 			}
-			/*if($email1 == $email2) {
-				$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
-				$ajoutMembre -> execute(array($name, $email1, $mdp1));
-				header("Location: index.php");
-			} else {
-				$erreur = 1;
-			}*/
 		} else {
 			$erreur = 1;
 		}
 		
-		//Ajouter pour empêcher création de compte si nom ou mail déjà utilisé
     }
     
 ?>
@@ -149,6 +151,11 @@
 						if($erreurMdp == 1) {
 							?>
 							<p style="color: red;">Votre mot de passe doit contenir au minimum 7 caractères dont 1 majuscule et 1 chiffre</p>
+							<?php
+						}
+						if($erreurMail == 1) {
+							?>
+							<p style="color: red;">Addresse mail déjà utilisée !</p>
 							<?php
 						}
 					?>

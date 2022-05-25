@@ -17,6 +17,7 @@
     -Fill Items List with user's items
     -Pick randomly sentences of password ideas when bulb button clicked
     -Add Main panel with name of item, user name, password, and copy password
+    -NavBar issue when collapse or decollapse (Lucas)
 -->
 
 <head>
@@ -97,10 +98,10 @@
             }
         }
 
-        function ajouteLigne(tableID) {
+        function ajouteLigne(tableID, nameItem) {
             var ul = document.getElementById("myUL");
             var li = document.createElement("li");
-            li.appendChild(document.createTextNode("Four"));
+            li.appendChild(document.createTextNode(nameItem));
             ul.appendChild(li);
         }
 
@@ -116,7 +117,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="AddPassword.php" onclick="ajouteLigne('myTable')">Add
+            <li class="nav-item"><a class="nav-link " href="AddPassword.php" onclick="ajouteLigne('myTable', '<?php echo($_POST['identifiant']); ?>')">Add
                     Password</a></li>
             <li class="nav-item"><a class="nav-link " href="#">
                     <div class="logo-image">

@@ -1,4 +1,33 @@
 <?php
+	/*include 'connexion.php';*/
+
+	/*$erreur = 0;
+	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+	
+	function userExist($email, $mdp) {
+		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE passwd = ?");
+		$verifMembre -> execute(array($mdp));
+	
+		$exist = $verifMembre -> rowCount();
+	
+		return $exist;
+	}
+
+	if(isset($_POST['connexion'])) {
+		$email = htmlspecialchars($_POST['email']);
+		$mdp = sha1($_POST['pass']);
+	
+		if(userExist($email, $mdp) == 1) {
+			session_start();
+			$user = $verifMembre -> fetch();
+			$_SESSION['res_id'] = $user['id'];
+			header("Location: accueil_page.php");
+			echo "test";
+		} else {
+			$erreur = 1;
+		}
+	}*/
+
 	$erreur = 0;
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
@@ -15,7 +44,7 @@
 			session_start();
 			$user = $verifMembre -> fetch();
 			$_SESSION['res_id'] = $user['id'];
-			header("Location: acceuil.php");
+			header("Location: accueil_page.php");
 		} else {
 			$erreur = 1;
 		}
@@ -28,20 +57,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/login.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -59,10 +88,10 @@
 						</style>
 						<br>
 						<br>
-					<img src="images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
+					<img src="../images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
-				<form class="login100-form validate-form" /*action="verification.php"*/ method="POST">
+				<form class="login100-form validate-form" method="POST">
 					<span class="login100-form-title">
 						Connexion
 					</span>
@@ -107,7 +136,7 @@
 					</div>
 
 					<div class="text-center p-t-10">
-						<a class="txt2" href="inscription.php">
+						<a class="txt2" href="inscription_form.php">
 							Créer un utilisateur
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
@@ -121,21 +150,21 @@
 
 	
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../vendor/jquery/jquery-3.2.1.min.js" defer></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/bootstrap/js/popper.js" defer></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js" defer></script>
 <!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+	<script src="../vendor/select2/select2.min.js" defer></script>
 <!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="../vendor/tilt/tilt.jquery.min.js" defer></script>
 	<script >
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script src="../js/main.js" defer></script>
 
 </body>
 </html>

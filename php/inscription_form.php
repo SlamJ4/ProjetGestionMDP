@@ -1,53 +1,5 @@
 <?php
-	$erreur = 0;
-	$erreurMdp = 0;
-	$erreurMail = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
-
-    if(isset($_POST['inscription'])) {
-		$name = htmlspecialchars($_POST['name']);
-		$email1 = htmlspecialchars($_POST['email']);
-		$email2 = htmlspecialchars($_POST['confirmEmail']);
-		$mdp1 = sha1($_POST['mdp']);
-		$mdp2 = sha1($_POST['confirmMdp']);
-		
-		if ($mdp1 == $mdp2) {
-			$countMaj = 0;
-			$countCaraSpecial = 0;
-			for($i = 0; $i < strlen($_POST['mdp']); $i += 1) {
-				if(ctype_upper($_POST['mdp'][$i])) {
-					$countMaj += 1;
-				}
-				if(ctype_digit($_POST['mdp'][$i])) {
-					$countCaraSpecial += 1;
-				}
-			}
-			if(strlen($_POST['mdp']) > 7 AND $countMaj >= 1 AND $countCaraSpecial >= 1) {
-				if($email1 == $email2) {
-					$testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
-					$testEmail -> execute(array($_POST['email']));
-
-					$emailUse = $testEmail -> rowCount();
-
-					if($emailUse == 0) {
-						$ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
-						$ajoutMembre -> execute(array($name, $email1, $mdp1));
-						header("Location: index.php");
-					} else {
-						$erreurMail = 1;
-					}
-				} else {
-					$erreur = 1;
-				}
-			} else {
-				$erreurMdp = 1;
-			}
-		} else {
-			$erreur = 1;
-		}
-		
-    }
-    
+	include('inscription.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,20 +8,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/inscription.css">
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/inscription.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -89,7 +41,7 @@
 						<br>
 						<br>
 						<br>
-					<img src="images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
+					<img src="../images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
 				<form class="login100-form validate-form" method="POST">
@@ -145,7 +97,7 @@
 					<?php
 						if($erreur == 1) {
 							?>
-							<p style="color: red;">Les mots de passe ou les mails ne correspondent pas</p>
+							<p style="color: red;">Les mots de passe correspondent pas ou votre mot de passe ne contient pas au minimum 7 caractères dont 1 majuscule et 1 chiffre</p>
 							<?php
 						}
 						if($erreurMdp == 1) {
@@ -155,7 +107,7 @@
 						}
 						if($erreurMail == 1) {
 							?>
-							<p style="color: red;">Addresse mail déjà utilisée !</p>
+							<p style="color: red;">Les addresses mail ne correspondent pas ou celle-ci est déjà utilisée !</p>
 							<?php
 						}
 					?>

@@ -13,7 +13,7 @@
 		if($_SESSION['res_id'] != 0) {
 			$ajoutMdp = $bdd -> prepare("INSERT INTO gestionmdp(user,site,login,password) VALUES(?,?,?,?)");
 			$ajoutMdp -> execute(array($_SESSION['res_id'], $site,$login,$mdp));
-			header("Location: acceuil.php");
+			header("Location: accueil.php");
 		}
 	}
 
@@ -34,7 +34,7 @@
 <body>
 	<br>
 	<br>
-	<form method="POST" action="acceuil.php">
+	<form method="POST" action="accueil.php">
 		<table align="center">
 			<tr>
 				<td align="right">

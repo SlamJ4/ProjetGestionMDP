@@ -45,14 +45,13 @@
     <link rel="stylesheet" href="../css/sidebar-css/style.css">
     <!----------------------------------------------SideBar---------------------------------------------------------------->
 
-
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="#" onclick="ajouteLigne('myTable', '<?php echo($mdpInfoItem['site']); ?> ')">Add
+            <li class="nav-item"><a class="nav-link " href="AddPassword_form.php">Add
                     Password</a></li>
         </ul>
 
@@ -126,8 +125,8 @@
                 </ul>
                 <hr />
                 <ul id="myUL">
-                    <li><a href="#">Adele</a></li>
-                    <li><a href="#">Agnes</a></li>
+                    <li><a href="#"><?php echo($mdpInfoItem['site']); ?></a></li>
+                    <li><a href="#"><?php echo($mdpInfoItem['site']); ?></a></li>
 
                     <li><a href="#">Billy</a></li>
                     <li><a href="#">Bob</a></li>

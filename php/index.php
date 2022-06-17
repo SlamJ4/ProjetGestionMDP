@@ -1,55 +1,3 @@
-<?php
-	/*include 'connexion.php';*/
-
-	/*$erreur = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
-	
-	function userExist($email, $mdp) {
-		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE passwd = ?");
-		$verifMembre -> execute(array($mdp));
-	
-		$exist = $verifMembre -> rowCount();
-	
-		return $exist;
-	}
-
-	if(isset($_POST['connexion'])) {
-		$email = htmlspecialchars($_POST['email']);
-		$mdp = sha1($_POST['pass']);
-	
-		if(userExist($email, $mdp) == 1) {
-			session_start();
-			$user = $verifMembre -> fetch();
-			$_SESSION['res_id'] = $user['id'];
-			header("Location: accueil_page.php");
-			echo "test";
-		} else {
-			$erreur = 1;
-		}
-	}*/
-
-	$erreur = 0;
-	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
-
-	if(isset($_POST['connexion'])) {
-		$email = htmlspecialchars($_POST['email']);
-		$mdp = sha1($_POST['pass']);
-
-		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE passwd = ?");
-		$verifMembre -> execute(array($mdp));
-
-		$exist = $verifMembre -> rowCount();
-
-		if($exist == 1) {
-			session_start();
-			$user = $verifMembre -> fetch();
-			$_SESSION['res_id'] = $user['id'];
-			header("Location: accueil_page.php");
-		} else {
-			$erreur = 1;
-		}
-	}
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -74,7 +22,7 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -91,7 +39,7 @@
 					<img src="../images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
-				<form class="login100-form validate-form" method="POST">
+				<form class="login100-form validate-form" method="POST" action="connexion.php">
 					<span class="login100-form-title">
 						Connexion
 					</span>

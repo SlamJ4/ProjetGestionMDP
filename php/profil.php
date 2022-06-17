@@ -1,14 +1,14 @@
 <?php
-    session_start();
+    /*session_start();
     $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
     $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");
     $user -> execute(array($_SESSION['res_id']));
     
-    $infosUser = $user -> fetch();
+    $infosUser = $user -> fetch();*/
 
     if(isset($_POST['editionProfil'])) {
-        header("Location: editerProfil.php");
+        header("Location: editerProfil_page.php");
     }
 
     if(isset($_POST['deco'])) {

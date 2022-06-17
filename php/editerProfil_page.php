@@ -1,12 +1,3 @@
-<?php
-    include('editerProfil.php');
-
-    if(isset($_POST['confirmChanges'])) {
-        updateProfile();
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,7 +7,7 @@
 <body>
     <h1 align="center">Édition de Mon profil</h1>
 
-    <form method="POST">
+    <form method="POST" action="editerProfil.php">
         <table align="center">
             <tr>
                 <td align="center">

@@ -1,6 +1,3 @@
-<?php
-	include('inscription.php');
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -44,7 +41,7 @@
 					<img src="../images/logo.png" alt="IMG" class="centrer" style="width:200px;height:200px;">
 				</div>
 
-				<form class="login100-form validate-form" method="POST">
+				<form class="login100-form validate-form" method="POST" action="inscription.php">
 					<span class="login100-form-title">
 						Inscription
 					</span>

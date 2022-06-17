@@ -1,5 +1,16 @@
 <?php
-    include('accueil.php');
+    session_start();
+    $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+    
+    $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");
+    $user -> execute(array($_SESSION['res_id']));
+    
+    $infosUser = $user -> fetch();
+    
+    $mdpItem = $bdd -> prepare("SELECT * FROM gestionmdp WHERE user = ?");
+    $mdpItem -> execute(array($_SESSION['res_id']));
+    
+    $mdpInfoItem = $mdpItem -> fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -106,7 +117,7 @@
         <div class="side-inner">
 
             <div class="profile">
-                <a href="profil.php"><img src="../images/image-sidebar/person_4.jpg" alt="Image" class="img-fluid"></a>
+                <a href="profil_page.php"><img src="../images/image-sidebar/person_4.jpg" alt="Image" class="img-fluid"></a>
                 <h3 class="name">
                     <?php echo($infosUser['pseudo']); ?>
                 </h3>
@@ -117,7 +128,7 @@
             <div class="nav-menu">
                 <ul>
                     <div>
-                        <li><a href="profil.php"><span class="icon-pie-chart mr-3"></span>Profil</a></li>
+                        <li><a href="profil_page.php"><span class="icon-pie-chart mr-3"></span>Profil</a></li>
                         <li><a href="index.php">
                                 <span class="icon-sign-out mr-3"></span>Sign out
                             </a></li>

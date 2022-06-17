@@ -1,5 +1,11 @@
 <?php
-    include('profil_page.php');
+    session_start();
+    $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
+
+    $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");
+    $user -> execute(array($_SESSION['res_id']));
+    
+    $infosUser = $user -> fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -142,12 +148,12 @@
 </head>
 <body>
     <div id="card">
-    <h1><?php echo($infosUser['pseudo']); ?></h1>
+    <h1 action="profil.php"><?php echo($infosUser['pseudo']); ?></h1>
     <div class="image-crop">
         <img id="avatar" src="https://drive.google.com/uc?id=1EVA3KUBLxCXF2EGmTf4LUB8F4yAvBrjl"></img>
     </div>
     <div id="bio">
-        <form method="POST">
+        <form method="POST" action="profil.php">
         <table align="center">
             <tr>
                 <td align="right">
@@ -187,7 +193,7 @@
         </div>
     </div>
     <div id="buttons">
-        <form method="POST">
+        <form method="POST" action="profil.php">
             <table>
                 <tr>
                     <td>

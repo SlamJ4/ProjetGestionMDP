@@ -1,6 +1,17 @@
 <?php
-include('inscription.php');
 session_start();
+
+function verifEmail ($email1, $email2) {
+    if ($email1 == $email2) {
+        $testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
+        $testEmail -> execute(array($_POST['email']));
+
+        $emailUse = $testEmail -> rowCount();
+        return $emailUse; 
+    } else {
+        return 1;
+    }
+}
 
 $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
@@ -13,7 +24,7 @@ $user -> execute(array($_SESSION['res_id']));
 
 $infosUser = $user -> fetch();
 
-function updateProfile() {
+if(isset($_POST['confirmChanges'])) {
     $newPseudo = htmlspecialchars($_POST['newPseudo']);
     $newEmail = htmlspecialchars($_POST['newEmail']);
     $newMdp = sha1($_POST['newPasswd']);
@@ -28,25 +39,44 @@ function updateProfile() {
         $erreurPseudo = 1;
     }
 
-    if(isset($newEmail) AND verifEmail($newEmail, $newEmail) == 0 AND $newEmail != $infosUser['email']) {
-        $changeEmail = $bdd -> prepare("UPDATE users SET email = ? WHERE id = ?");
-        $changeEmail -> execute(array($newEmail, $_SESSION['res_id']));
-        $changement++;
-    } else {
-        $erreurEmail = 1;
-    } 
+    if(isset($newEmail)) {
+        $testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
+        $testEmail -> execute(array($_POST['email']));
 
-    if(isset($newMdp) AND $newMdp != $infosUser['passwd'] AND verifMdp($newMdp, $newMdp)) {
-        $changePasswd = $bdd -> prepare("UPDATE users SET passwd = ? WHERE id = ?");
-        $changePasswd -> execute(array($newMdp, $_SESSION['res_id']));
-        $changement++;
-        //METTRE LES MÊMES RÈGLES DE SÉCURITÉS QUE POUR L'INSCRIPTION + TRAITER LES VERIFS DANS DES FONCTIONS
-    } else {
-        $erreurPasswd = 1;
+        $emailUse = $testEmail -> rowCount();
+        if ($emailUse == 0 AND $newEmail != $infosUser['email']) {
+            $changeEmail = $bdd -> prepare("UPDATE users SET email = ? WHERE id = ?");
+            $changeEmail -> execute(array($newEmail, $_SESSION['res_id']));
+            $changement++;
+        } else {
+            $erreurEmail = 1;
+        }
+        
+    }
+
+    if(isset($newMdp)) {
+        $countMaj = 0;
+        $countCaraSpecial = 0;
+        for($i = 0; $i < strlen($newMdp); $i += 1) {
+            if(ctype_upper($newMdp[$i])) {
+                $countMaj += 1;
+            }
+            if(ctype_digit($newMdp[$i])) {
+                $countCaraSpecial += 1;
+            }
+        }
+        if (strlen($mdp1) > 7 AND $countMaj >= 1 AND $countCaraSpecial >= 1) {
+
+            $changePasswd = $bdd -> prepare("UPDATE users SET passwd = ? WHERE id = ?");
+            $changePasswd -> execute(array($newMdp, $_SESSION['res_id']));
+            $changement++;
+        } else {
+            $erreurPasswd = 1;
+        }
     }
 
     if($changement > 0) {
-        header("Location: profil.php");
+        header("Location: profil_page.php");
     }
 }
 ?>

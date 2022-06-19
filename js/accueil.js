@@ -1,8 +1,11 @@
 //Fonction permettant de rajouter un item dans la navbar
-function ajouteLigne(tableID, nameItem) {
-    var ul = document.getElementById(tableID);
+function ajouteLigne(ulId, nameItem) {
+    var ul = document.getElementById(ulId);
+    var a = document.createElement("a");
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(nameItem));
+    a.textContent= nameItem;
+    a.setAttribute("href", "#html");
+    li.appendChild(a);
     ul.appendChild(li);
 }
 

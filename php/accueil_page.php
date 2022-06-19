@@ -62,7 +62,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">TopLock</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link " href="AddPassword_form.php">Add
+            <li class="nav-item"><a class="nav-link " href="#" onclick="ajouteLigne('myUl','popo')">Add
                     Password</a></li>
         </ul>
 
@@ -145,6 +145,7 @@
                     <li><a href="#">Calvin</a></li>
                     <li><a href="#">Christina</a></li>
                     <li><a href="#">Cindy</a></li>
+                    <li><a href="#">COucou</a></li>
                 </ul>
             </div>
         </div>

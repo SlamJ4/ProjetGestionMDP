@@ -10,7 +10,7 @@
     $mdpItem = $bdd -> prepare("SELECT * FROM gestionmdp WHERE user = ?");
     $mdpItem -> execute(array($_SESSION['res_id']));
     
-    $mdpInfoItem = $mdpItem -> fetch();
+    $mdpInfoItem = $mdpItem -> fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -15,4 +15,8 @@
         session_destroy();
         header("Location: index.php");
     }
+
+    if(isset($_POST['rediriger'])) {
+        header("Location: accueil_page.php");
+    }
 ?>

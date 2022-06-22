@@ -1,18 +1,6 @@
 <?php
 session_start();
 
-function verifEmail ($email1, $email2) {
-    if ($email1 == $email2) {
-        $testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
-        $testEmail -> execute(array($_POST['email']));
-
-        $emailUse = $testEmail -> rowCount();
-        return $emailUse; 
-    } else {
-        return 1;
-    }
-}
-
 $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
 $erreurPseudo = 0;

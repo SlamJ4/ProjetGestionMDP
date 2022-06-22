@@ -19,6 +19,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../css/util.css">
 	<link rel="stylesheet" type="text/css" href="../css/inscription.css">
+	<link rel="stylesheet" type="text/css" href="../css/inscription_page.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -27,13 +28,6 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<style>
-						.centrer {
-						  display: block;
-						  margin-left: auto;
-						  margin-right: auto;
-						}
-						</style>
 						<br>
 						<br>
 						<br>

@@ -1,6 +1,10 @@
 <?php
     session_start();
 
+    if (!$_SESSION['res_id']) {
+        header("Location: index.php");
+    }
+
     $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
     $user = $bdd -> prepare("SELECT * FROM users WHERE id = ?");

@@ -13,7 +13,7 @@
 
     if(isset($_POST['deco'])) {
         session_destroy();
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
 
     if(isset($_POST['rediriger'])) {

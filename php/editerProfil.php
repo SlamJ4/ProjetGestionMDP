@@ -15,7 +15,7 @@ $infosUser = $user -> fetch();
 if(isset($_POST['confirmChanges'])) {
     $newPseudo = htmlspecialchars($_POST['newPseudo']);
     $newEmail = htmlspecialchars($_POST['newEmail']);
-    $newMdp = sha1($_POST['newPasswd']);
+    $newMdp = sha1($_POST['newMdp']);
     $changement = 0;
 
     if(isset($newPseudo) AND $newPseudo != $infosUser['pseudo'] AND strlen($newPseudo) > 0) {
@@ -66,5 +66,9 @@ if(isset($_POST['confirmChanges'])) {
     if($changement > 0) {
         header("Location: profil_page.php");
     }
+}
+
+if(isset($_POST['cancel'])) {
+    header("Location: profil_page.php");
 }
 ?>

@@ -6,8 +6,8 @@
 		$email = htmlspecialchars($_POST['email']);
 		$mdp = sha1($_POST['pass']);
 
-		$verifMembre = $bdd -> prepare("SELECT * FROM users WHERE passwd = ?");
-		$verifMembre -> execute(array($mdp));
+		$verifMembre = $bdd -> prepare("SELECT id,email,passwd FROM users WHERE passwd = ? AND email = ?");
+		$verifMembre -> execute(array($mdp,$email));
 
 		$exist = $verifMembre -> rowCount();
 

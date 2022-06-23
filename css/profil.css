@@ -100,7 +100,7 @@ h1 {
     width: 280px;
 }
 
-input {
+.btn {
     display: block;
     position: relative;
     padding: 10px 0;
@@ -115,11 +115,11 @@ input {
     color: #E6EBEE;
 }
 
-input:focus {
+.btn:focus {
     display: none;
 }
 
-input:hover {
+.btn:hover {
     transform: scale(1.03);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
@@ -132,8 +132,4 @@ input:hover {
 
 #backButton {
     margin: 1%;
-}
-
-.test {
-    background-color: #6E7889;
 }

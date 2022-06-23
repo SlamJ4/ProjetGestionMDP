@@ -2,7 +2,7 @@
     session_start();
 
     if (!$_SESSION['res_id']) {
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
 
     $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");

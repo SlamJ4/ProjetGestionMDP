@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!$_SESSION['res_id']) {
+	header("Location: ../index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

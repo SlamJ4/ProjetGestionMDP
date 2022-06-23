@@ -2,7 +2,7 @@
     session_start();
 
     if (!$_SESSION['res_id']) {
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
 
     $bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
@@ -22,7 +22,7 @@
 <body>
     <div id="backButton">
         <form method="POST" action="profil.php">
-            <input type="submit" name="rediriger" value="Retour"/>
+            <input class="btn" type="submit" name="rediriger" value="Retour"/>
         </form>
     </div>
     <div id="card">
@@ -31,7 +31,7 @@
         <img id="avatar" src="https://drive.google.com/uc?id=1EVA3KUBLxCXF2EGmTf4LUB8F4yAvBrjl"></img>
     </div>
     <div id="bio">
-        <form method="POST" action="profil.php">
+        <form method="POST">
         <table align="center">
             <tr>
                 <td align="right">
@@ -75,12 +75,12 @@
             <table>
                 <tr>
                     <td>
-                        <input type="submit" name="editionProfil" value="Éditer Profil"/>
+                        <input class="btn" type="submit" name="editionProfil" value="Éditer Profil"/>
                     </td>
                     <td>
                     </td>
                     <td>
-                        <input type="submit" name="deco" id="msg" value="Déconnexion"/>
+                        <input class="btn" type="submit" name="deco" id="msg" value="Déconnexion"/>
                     </td>
                 </tr>
             </table>

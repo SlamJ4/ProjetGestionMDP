@@ -1,4 +1,9 @@
 <?php
+	if ( !isset($_SERVER['DOCUMENT_ROOT'])) {
+		throw new \Exception("Fatal error: \$_SERVER['DOCUMENT_ROOT'] is not set", 1);
+	}
+	$basePath = $_SERVER['DOCUMENT_ROOT'];
+	print($basePath);
     $erreur = 0;
 	$bdd = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
@@ -18,5 +23,6 @@
 			header("Location: accueil_page.php");
 		} else {
 			$erreur = 1;
+			require_once '../index.php';
 		}
 	}

@@ -24,8 +24,8 @@
         }
     }
 
-    function verifEmail($email1, $email2) {
-        $testEmail = $bdd -> prepare("SELECT * FROM users WHERE email = ?");
+    function verifEmail($email1, $email2, $BD) {
+        $testEmail = $BD -> prepare("SELECT * FROM users WHERE email = ?");
         $testEmail -> execute(array($email1));
 
         $emailUse = $testEmail -> rowCount();
@@ -45,10 +45,10 @@
 		$mdp2 = sha1($_POST['confirmMdp']);
 		
 		if (verifPwd($_POST['mdp'], $_POST['confirmMdp']) == true) {
-            if(verifEmail($email1,$email2)) {
+            if(verifEmail($email1, $email2, $bdd) == true) {
                 $ajoutMembre = $bdd -> prepare("INSERT INTO users(pseudo, email, passwd) VALUES(?,?,?)");
                 $ajoutMembre -> execute(array($name, $email1, $mdp1));
-                header("Location: index.php");
+                header("Location: ../index.php");
             } else {
                 $erreurMail = 1;
             }
@@ -57,5 +57,3 @@
 		}
 		
     }
-
-?>

@@ -4,7 +4,7 @@ function ajouteLigne(ulId, nameItem) {
     var a = document.createElement("a");
     var li = document.createElement("li");
     a.textContent= nameItem;
-    a.setAttribute("href", "#html");
+    a.setAttribute("href", "#");
     li.appendChild(a);
     ul.appendChild(li);
 }
@@ -34,5 +34,11 @@ function HaveAnIdea() {
     var advice3 = 'Ne divulguez pas vos mots de passes à vos collègues et sur internet !';
     var advice4 = 'N\'hésitez pas à changer vos mots de passes régulièrement !';
     let adviceTab = [advice1, advice2, advice3, advice4];
-    alert(adviseTab[Math.floor(Math.random() * adviceTab.length)]);
+    alert(adviceTab[Math.floor(Math.random() * adviceTab.length)]);
+}
+
+function retrievePasswordData(pSite, pLogin, pPassword){
+    document.getElementById("nomSite").innerHTML=pSite;
+    document.getElementById("loginPwdCompte").value=pLogin;
+    document.getElementById("passPwdCompte").value=pPassword;
 }

@@ -1,3 +1,10 @@
+<?php
+if ( !isset($_SERVER['DOCUMENT_ROOT'])) {
+	throw new \Exception("Fatal error: \$_SERVER['DOCUMENT_ROOT'] is not set", 1);
+}
+$basePath = $_SERVER['DOCUMENT_ROOT'];
+print("($basePath)");
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,21 +12,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="/ProjetGestionMDP/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/ProjetGestionMDP/css/index.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -47,7 +54,7 @@
 					?>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="email" name="email" placeholder="Email">
+						<input class="input100" type="email" name="email" placeholder="Email" required="required">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -55,7 +62,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Mot de passe">
+						<input class="input100" type="password" name="pass" placeholder="Mot de passe" required="required">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -78,7 +85,7 @@
 					</div>
 
 					<div class="text-center p-t-10">
-						<a class="txt2" href="inscription_form.php">
+						<a class="txt2" href="php/inscription_form.php">
 							Créer un utilisateur
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>

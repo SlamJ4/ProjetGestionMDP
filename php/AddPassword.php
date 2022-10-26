@@ -9,15 +9,18 @@
 		$mdp = sha1($_POST['password']);
 		$group = htmlspecialchars($_POST['pets']);
 
-		if(isset($group)) {
+		if(isset($group) && $group != "" && $group != null) {
 			$group_id = $group;
+			if($_SESSION['res_id'] != 0) {
+				$ajoutMdp = $bdd -> prepare("INSERT INTO gestionmdp(user,site,login,password,group_id) VALUES(?,?,?,?,?)");
+				$ajoutMdp -> execute(array($_SESSION['res_id'], $site,$login,$mdp,$group_id));
+				header("Location: accueil_page.php");
+			}
 		} else {
-			$group_id = NULL;
-		}
-
-		if($_SESSION['res_id'] != 0) {
-			$ajoutMdp = $bdd -> prepare("INSERT INTO gestionmdp(user,site,login,password,group_id) VALUES(?,?,?,?,?)");
-			$ajoutMdp -> execute(array($_SESSION['res_id'], $site,$login,$mdp,$group_id));
-			header("Location: accueil_page.php");
+			if($_SESSION['res_id'] != 0) {
+				$ajoutMdp = $bdd -> prepare("INSERT INTO gestionmdp(user,site,login,password) VALUES(?,?,?,?)");
+				$ajoutMdp -> execute(array($_SESSION['res_id'], $site,$login,$mdp));
+				header("Location: accueil_page.php");
+			};
 		}
 	}

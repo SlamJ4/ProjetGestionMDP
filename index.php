@@ -5,6 +5,7 @@
 if ( !isset($_SERVER['DOCUMENT_ROOT'])) {
 	throw new \Exception("Fatal error: \$_SERVER['DOCUMENT_ROOT'] is not set", 1);
 }
+$erreur=0;
 //base path debug line
 //$basePath = $_SERVER['DOCUMENT_ROOT'];
 //print("($basePath)");

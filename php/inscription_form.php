@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+$erreur = 0;
+$erreurMail = 0;
+$erreurMdp = 0;
+?>
 <html lang="fr">
 <head>
 	<title>TopLock</title>

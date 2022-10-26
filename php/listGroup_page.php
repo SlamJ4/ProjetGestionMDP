@@ -110,7 +110,6 @@ $infosGroupes = $recupGroupes -> fetchAll();
                                   }?>
                         </td>
                         <td>
-                                  <?php //trouver quoi supprimer et quoi garder dans la balise button car quand supprime tt, le php marche ?>
                                   <button type="submit" class="close" data-dismiss="alert" aria-label="Close" name="test">
                                       <span aria-hidden="true"><i class="fa fa-close"></i></span>
                                 </button>

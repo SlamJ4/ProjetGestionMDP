@@ -7,7 +7,7 @@ if ( !isset($_SERVER['DOCUMENT_ROOT'])) {
     throw new \Exception("Fatal error: This application must be run in a web environnement.", 1);
 }
 
-$sBasepath=$_SERVER['DOCUMENT_ROOT'].'/ProjetGestionMDP'.'/';
+$sBasepath=$_SERVER['DOCUMENT_ROOT'].'/';
 
 $aRequest = getPost();
 

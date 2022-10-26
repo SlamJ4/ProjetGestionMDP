@@ -23,7 +23,6 @@
 			header("Location: accueil_page.php");
 		} else {
 			$erreur = 1;
-			require_once '../index.php';
+			header("Location: ../index.php");
 		}
 	}
-	//Corriger: quand on essaie de se co on ne peut plus accéder à la page d'inscription ni de re tenter se connecter

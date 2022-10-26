@@ -13,7 +13,7 @@ spl_autoload_register( function($className){
     $classLoaded = false;
 
     foreach($dirList as $dirName){
-        $file = $basePath.'/'.'ProjetGestionMDP'.'/'.$dirName.'/'.$className.'.php';
+        $file = $basePath.'/'.$dirName.'/'.$className.'.php';
 
         if( !$classLoaded && file_exists($file) ){
             $classLoaded = true;

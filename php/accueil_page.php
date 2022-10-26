@@ -217,14 +217,14 @@
                   <div class="row">
                     <div class="col-md-12 form-group mb-3">
                       <label for="message" class="col-form-label">Informations supplémentaires :</label>
-                      <textarea class="form-control" name="message" id="message" cols="30" rows="4"  placeholder="ajouter des information supplémentaire" style="height: 80px;"></textarea>
+                      <textarea class="form-control" name="message" id="message" cols="30" rows="4"  placeholder="Informations supplémentaires" style="height: 80px;"></textarea>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12 form-group">
-						<button type="submit" name="updatePassword" class="btn btn-primary rounded-1 py-2 px-2">
+						<!---<button type="submit" name="updatePassword" class="btn btn-primary rounded-1 py-2 px-2">
 							Sauvegarder
-						</button>
+						</button>--->
 					</div>
                   </div>
                 </form>

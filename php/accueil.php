@@ -1,7 +1,7 @@
 <?php
-require_once('../class/Database.php');
 session_start();
-$dbh = Database::connexion();
+
+$dbh = new PDO("mysql:host=localhost;dbname=membres;charset=utf8","jordan","toto");
 
 $dbh->prepare("SELECT id, pseudo, email, passwd FROM users WHERE id = ?");
 $user -> execute(array($_SESSION['res_id']));
